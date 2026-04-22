@@ -1,0 +1,49 @@
+Rubric Item Mapping for Python Final-Keylogger
+
+1. Use variables and list to store and access data
+- Met in [logging_tools.py](logging_tools.py) with self.current_buffer, self.captured_keys, self.session_data, self.key_sequences, and self.session_count.
+- Also met in get_session_stats(), which stores values in the stats dictionary and accesses captured key data.
+
+2. Use string object to display and control text output
+- Met in [Keylogger.py](Keylogger.py) with print() output in display_session_summary().
+- Met in [logging_tools.py](logging_tools.py) with GUI text strings such as window title, label text, and button text in UserInterface.
+
+3. Define 2 or more functions and use function calls to execute tasks
+- Met in [Keylogger.py](Keylogger.py) with display_session_summary(), main(), and the nested on_press() function.
+- Function calls include logger.process_key(key), listener.start(), ui.start_enticement(), listener.stop(), and display_session_summary(logger).
+
+4. Implement loop (for or while or both)
+- Met in [Keylogger.py](Keylogger.py) with for loops in display_session_summary().
+- Met in [logging_tools.py](logging_tools.py) with for loops in get_session_stats() and display_captured_data().
+
+5. Include conditional statement (if or if-else or if-elif-else)
+- Met in [logging_tools.py](logging_tools.py) with the if-elif-else chain in process_key().
+- Also met in [Keylogger.py](Keylogger.py) with if __name__ == "__main__":.
+
+6. Use a non-built-in module, custom module
+- Met in [Keylogger.py](Keylogger.py) with from logging_tools import KeyLogger, UserInterface.
+- The project also uses the external pynput module for keyboard input.
+
+7. Contains at least 2 classes and 1 sub-class
+- Met in [logging_tools.py](logging_tools.py) with BaseLogger, KeyLogger, and UserInterface.
+- KeyLogger is the subclass of BaseLogger.
+
+8. Includes 1 or more objects and 1 or more methods in each class
+- Objects are created in [Keylogger.py](Keylogger.py) with logger = KeyLogger("secret_log.txt") and ui = UserInterface().
+- BaseLogger has write_to_file(), KeyLogger has process_key(), get_session_stats(), and display_captured_data(), and UserInterface has start_enticement() and save_notes().
+
+9. Implement error detection using Python built-in exceptions
+- Met in [Keylogger.py](Keylogger.py) with try/except ImportError around pynput.
+- Met in [logging_tools.py](logging_tools.py) with try/except blocks for file creation, file writing, and GUI save operations.
+
+10. Implement file operations and file output
+- Met in [logging_tools.py](logging_tools.py) with open(self.filename, 'a') in BaseLogger.write_to_file().
+- Met in save_notes() with writing to public_notes.txt.
+- Also met in KeyLogger initialization, which ensures secret_log.txt exists.
+
+11. Integrate UI (optional bonus)
+- Met in [logging_tools.py](logging_tools.py) through the tkinter-based UserInterface class.
+- The UI includes a window, text box, buttons, and message boxes.
+
+Short conclusion
+- The project satisfies all listed rubric items, including the optional UI bonus.
